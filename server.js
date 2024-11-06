@@ -14,7 +14,7 @@ const app = express();
 const port = 3000;
 
 const corsOptions = {
-    origin: 'http://localhost:4200', // Replace with your actual frontend URL
+    origin: 'https://minicrmfe.netlify.app', // Replace with your actual frontend URL
     credentials: true,  // This allows cookies to be sent along with the request
   };
 
