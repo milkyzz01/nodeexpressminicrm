@@ -18,7 +18,7 @@ router.post('/login', (req, res) => {
         return res.status(400).send({ message: 'Username and password are required' });
     }
 
-    const sql = 'SELECT * FROM users WHERE username = ?';
+    const sql = 'SELECT * FROM user WHERE username = ?';
 
     db.query(sql, [username], (err, results) => {
         if (err) {
@@ -73,7 +73,7 @@ router.post('/signup', async (req, res) => {
   
     try {
       // Check if username already exists
-      db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
+      db.query('SELECT * FROM user WHERE username = ?', [username], async (err, results) => {
         if (err) {
           return res.status(500).json({ message: 'Database query error' });
         }
@@ -87,7 +87,7 @@ router.post('/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
   
         // Insert the new user into the database
-        const query = 'INSERT INTO users (username, password) VALUES (?, ?)';
+        const query = 'INSERT INTO user (username, password) VALUES (?, ?)';
         db.query(query, [username, hashedPassword], (err, result) => {
           if (err) {
             return res.status(500).json({ message: 'Error saving user to database' });
