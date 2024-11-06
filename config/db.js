@@ -3,9 +3,13 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}/${process.env.MYSQLDATABASE}`
-
-const db = mysql.createConnection(urlDB);
+const db = mysql.createConnection({
+  host: process.env.MYSQLHOST,           // Database host (from environment variables)
+  user: process.env.MYSQLUSER,           // Database username
+  password: process.env.MYSQLPASSWORD,   // Database password
+  database: process.env.MYSQLDATABASE,   // Database name
+  port: process.env.MYSQLPORT || 3306,   // Default MySQL port is 3306
+});
   
   db.connect((err) => {
     if (err) {
