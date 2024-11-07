@@ -21,8 +21,11 @@ const corsOptions = {
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+  setHeaders: (res, path) => {
+    console.log(`Serving file: ${path}`);
+  }
+}));
 
 app.use('/', user);
 app.use('/', companies);
